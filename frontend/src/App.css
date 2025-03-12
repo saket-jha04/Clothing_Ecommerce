@@ -1,0 +1,63 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+@media screen and (max-width: 640px) {
+  .plink.active {
+    background-color: black;
+    color: white;
+  }
+  
+}
+body {
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #343232;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #504d4d;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.news {
+  background-color: #3641c0;
+}
+
+.custom-checkbox {
+  border: 2px solid #4a4a4a;
+  border-radius: 0.25rem; 
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-checkbox:checked {
+  background-color: #000; 
+  border-color: #000;
+}
+
+.custom-checkbox:checked::after {
+  content: '✓';
+  color: #fff; 
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
