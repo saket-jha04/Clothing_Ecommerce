@@ -19,6 +19,7 @@ const Navbar = () => {
   const logout = () => {
     navigate("/login");
     localStorage.removeItem("token");
+    window.location.reload();
     setToken("");
     setCartItem({});
   };
@@ -27,7 +28,7 @@ const Navbar = () => {
     <div className="sticky top-0 z-50 shadow-sm border-b">
       <div className="flex items-center justify-between py-5 font-medium px-4 sm:px-[5vw] md:px-[7vw] lg:px-[10vw] bg-gray-50">
         <NavLink to="/">
-          <img src={assets.logo} className="w-32" alt="" />
+          <img src={assets.logo} className="w-16" alt="" />
         </NavLink>
         <ul className="hidden sm:flex gap-5 text-md text-gray-700 ">
           <NavLink to="/" className="flex flex-col items-center gap-1 link">

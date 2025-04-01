@@ -110,7 +110,7 @@ const Collection = () => {
             <p className="w-full h-[0.5px] bg-gray-600"></p>
             <div className="flex flex-col gap-2">
               <p className="text-base font-semibold">PRICE</p>
-              {["₹ 50-150", "₹ 150-250", "₹ 250-350"].map((price) => (
+              {["₹ 550-750", "₹ 750-950", "₹ 950-1150"].map((price) => (
                 <div key={price} className="flex flex-row items-center gap-2">
                   <input
                     type="checkbox"

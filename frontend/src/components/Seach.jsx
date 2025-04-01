@@ -4,11 +4,12 @@ import { assets } from '../assets/assets'
 import { useLocation } from 'react-router-dom'
 
 const Seach = () => {
-    const {search, setSearch, showSearch, setShowSearch} = useContext(DetailsContext)
+    const {search, setSearch, showSearch, setShowSearch, navigate} = useContext(DetailsContext)
     const location = useLocation()
 
     useEffect(() => {
       if (location.pathname !== '/collection') {
+        navigate('/collection')
         setShowSearch(false);
       }
     }, [location,setShowSearch])

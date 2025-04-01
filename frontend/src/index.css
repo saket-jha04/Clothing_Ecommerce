@@ -33,7 +33,7 @@
 }
 
 a.active p::before {
-  background-color: #ffacac;
+  background-color: #ffa3a3;
 }
 
 a:not(.active):hover p::before {

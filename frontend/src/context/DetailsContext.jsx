@@ -59,22 +59,31 @@ const ContextProvider = (props) => {
         return totalItems
     }
 
-    const updateCartItemQuantity = (productId, size, newQuantity) => {
+    const updateCartItemQuantity = async (itemId, size, quantity) => {
         setCartItems((prevCartItems) => {
           const updatedCartItems = { ...prevCartItems };
-          if (newQuantity > 0) {
-            updatedCartItems[productId] = {
-              ...updatedCartItems[productId],
-              [size]: newQuantity,
+          if (quantity > 0) {
+            updatedCartItems[itemId] = {
+              ...updatedCartItems[itemId],
+              [size]: quantity,
             };
           } else {
-            delete updatedCartItems[productId][size];
-            if (Object.keys(updatedCartItems[productId]).length === 0) {
-              delete updatedCartItems[productId];
+            delete updatedCartItems[itemId][size];
+            if (Object.keys(updatedCartItems[itemId]).length === 0) {
+              delete updatedCartItems[itemId];
             }
           }
           return updatedCartItems;
         })
+        if(token){
+          try {
+            console.log("upppppp")
+            await axios.post(backendURL+"/api/cart/update",{itemId, size, quantity},{headers:{token}})
+          } catch (error) {
+            console.log(error)
+        toast.error(error.message)
+          }
+        }
       }
 
       const removeCartItem = (productId, size) => {
@@ -118,6 +127,28 @@ const ContextProvider = (props) => {
         toast.error(error.message)
       }
     }
+    const getUserCart = async (token) => {
+      try {
+          const res = await axios.post(backendURL + "/api/cart/get", {}, { headers: { token } });
+  
+          if (res.data.success) {
+              let cleanedCartData = {};
+  
+              // Remove products with empty sizes
+              Object.keys(res.data.cartData).forEach((itemId) => {
+                  if (Object.keys(res.data.cartData[itemId]).length > 0) {
+                      cleanedCartData[itemId] = res.data.cartData[itemId];
+                  }
+              });
+  
+              setCartItems(cleanedCartData);
+          }
+      } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+      }
+  };
+  
     useEffect(() => {
       getProductData()
     },[])
@@ -125,6 +156,7 @@ const ContextProvider = (props) => {
     useEffect(() => {
       if(!token && (localStorage.getItem('token'))){
         setToken(localStorage.getItem('token'))
+        getUserCart(localStorage.getItem('token'))
       }
     },[])
 
@@ -134,7 +166,7 @@ const ContextProvider = (props) => {
 
 
     const value = {
-        products, currency, deliveryCharge,search,navigate,setSearch,showSearch,setShowSearch,cartItems,addToCart,getCartCount,updateCartItemQuantity,getCartAmount,removeCartItem,backendURL,token,setToken,userInitial,setUserInitial
+        products, currency, deliveryCharge,search,navigate,setSearch,showSearch,setShowSearch,cartItems,addToCart,getCartCount,updateCartItemQuantity,getCartAmount,removeCartItem,backendURL,token,setToken,userInitial,setUserInitial,setCartItems
     }
     return (
         <DetailsContext.Provider value={value}>

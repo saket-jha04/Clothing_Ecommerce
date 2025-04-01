@@ -6,10 +6,11 @@ import RelatedProduct from "../components/RelatedProduct";
 import Navbar from "../components/Navbar";
 import Newsletterbox from "../components/Newsletterbox";
 import Footer from "../components/Footer";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart,updateCartItemQuantity } = useContext(DetailsContext);
+  const { products, currency, addToCart,updateCartItemQuantity,token,navigate } = useContext(DetailsContext);
   const [productsData, setProductsData] = useState(false);
   const [img, setImg] = useState("");
   const [size, setSize] = useState("");
@@ -30,11 +31,31 @@ const Product = () => {
 
   const handleAddToCart = () => {
     if (!size) {
-      alert("Please select a size");
+      toast.error("Please select a size");
       return;
     }
-    addToCart(productsData._id, size);
-    setQuantity(1)
+    if(token){
+      addToCart(productsData._id, size);
+      setQuantity(1)
+    }else{
+      toast.error("Please login to continue")
+      navigate('/login')
+    }
+  }
+  const handleBuyNow = () => {
+    if (!size) {
+      toast.error("Please select a size");
+      return;
+    }
+    if(token){
+      addToCart(productsData._id, size);
+      setQuantity(1)
+      navigate('/placeorder')
+    }else{
+      toast.error("Please login to continue")
+      navigate('/login')
+    }
+
   }
   const handleIncreaseQuantity = () => {
     addToCart(productsData._id, size);
@@ -122,7 +143,7 @@ const Product = () => {
                   ADD TO CART
                 </button>
               )}
-            <button className="bg-blue-600 text-black px-6 py-3 text-sm">
+            <button onClick={handleBuyNow} className="bg-blue-600 text-black px-6 py-3 text-sm">
               BUY NOW
             </button>
           </div>

@@ -2,19 +2,21 @@ import React, { useContext, useState } from 'react';
 import { DetailsContext } from '../context/DetailsContext';
 import OffersModal from './OfferModel';
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const CartTotal = () => {
-  const { currency, deliveryCharge, getCartAmount, navigate } = useContext(DetailsContext);
+  const { currency, deliveryCharge, getCartAmount, navigate, token } = useContext(DetailsContext);
   const [showOffersModal, setShowOffersModal] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
 
   const handleContinue = () => {
-    if (currentPath === '/cart') {
-      navigate('/address')
-    } 
-    else if (currentPath === '/address') {
-      navigate('/payment')
+    if(token){
+      navigate('/placeorder')
+    }
+    else{
+      toast.error("Please login to continue")
+      navigate('/login')
     }
   };
 

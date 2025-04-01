@@ -9,8 +9,6 @@ import Orders from './pages/Orders'
 import PlaceOrder from './pages/PlaceOrder'
 import Product from './pages/Product'
 import './App.css'
-import Address from './components/Address'
-import Payment from './components/Payment'
 import { ToastContainer } from 'react-toastify'
 
 
@@ -26,10 +24,8 @@ function App() {
         <Route path='/contact' element={<Contact/>}  />
         <Route path='/login' element={<Login/>}  />
         <Route path='/orders' element={<Orders/>}  />
-        <Route path='/placeorder' element={<PlaceOrder/>}  />
         <Route path='/product/:productId' element={<Product/>}  />
-        <Route path='/address' element={<Address/>}  />
-        <Route path='/payment' element={<Payment/>}  />
+        <Route path='/placeorder' element={<PlaceOrder/>}  />
       </Routes>
     </>
   )
